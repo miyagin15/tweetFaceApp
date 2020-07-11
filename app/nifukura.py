@@ -2,9 +2,13 @@ import urllib.request, urllib.parse
 import json
 import os
 from os.path import join, dirname
+import logging
 from dotenv import load_dotenv
-
 load_dotenv(verbose=True)
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 X_NCMB_Application_Key = environ['X-NCMB-Application-Key']
 X_NCMB_Timestamp = environ['X-NCMB-Timestamp']
 X_NCMB_Signature = environ['X-NCMB-Signature']
@@ -21,6 +25,7 @@ def get_face_data():
     with urllib.request.urlopen(req) as res:
         res = res.read().decode("utf-8")
         res = json.loads(res)
+        logger.info(f'{len(res)}')
         # print(html)
         return res["results"]
 
