@@ -4,6 +4,9 @@ import logging
 import settings
 import numpy as np
 import pandas as pd
+import datetime
+import dateutil.parser
+
 
 
 logging.basicConfig(level=logging.INFO)
@@ -26,8 +29,7 @@ def get_face_data():
     with urllib.request.urlopen(req) as response:
         res = response.read().decode("utf-8")
         res = json.loads(res)
-        logger.info(f'{len(res)}')
-        # print(html)
+        logger.info(f'データ数:{len(res)}')
         return res["results"]
 
 
@@ -40,15 +42,31 @@ def alignment(sex, records):
     # print(list_df.query("Sex == 'man'").describe())
     # print(list_df.describe())
     query="Sex == '"+sex+"'"
-    print(query)
     return list_df.query(query).describe().to_string()
+
+
+def alignment_today(records):
+    list_df = pd.DataFrame(columns=['Age','Sex','Face_s'])
+    for record in records:
+        if datetime.date.today() == dateutil.parser.parse(record["createDate"]).date():
+            #tstr = record["createDate"].replace("Z","").replace("T"," ")
+            #tdatetime = dt.strptime(tstr, '%Y-%m-%d %H:%M:%S:%')
+            #print(tdatetime)
+            tmp_se = pd.Series([record["Age"],  record["Sex"], record["Face_s"]], index=list_df.columns)
+            list_df = list_df.append(tmp_se, ignore_index=True)
+    # print(list_df.query("Sex == 'woman'").describe())
+    # print(list_df.query("Sex == 'man'").describe())
+    # print(list_df.describe())
+    # query="Sex == '"+sex+"'"
+    return list_df.describe().to_string()
 
 
 # main関数
 if __name__ == '__main__':
     res = get_face_data()
-    alignment_data = alignment("man",res)
-    print(alignment_data)
+    alignment_today(res)
+    #alignment_data = alignment("man",res)
+    #print(alignment_data)
     #print(data)
     #print(json.dumps(datas,sort_keys=True, indent=4))
     #print(datas["results"])
