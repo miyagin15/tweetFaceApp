@@ -1,27 +1,44 @@
 from flask import Flask, render_template
 import nifukura
+import tweet
 
 app = Flask(__name__)
 
+
 class FaceRecord:
-    def __init___(self, Age, Sex, Face_s, idx):
+    def __init__(self, Age, Sex, Face_s, idx):
         self.Age = Age
         self.Sex = Sex
         self.Face_s = Face_s
         self.idx = idx
-        
+
+
 @app.route('/')
 def tweets_face_app():
     face_all_data = []
     n_open_tweets = 0
     face_nihukura_records = nifukura.get_face_data()
-    print(face_nihukura_records)
-    for idx, face_nihukura_record in enumerate(face_nihukura_records):
-        print(face_nihukura_record)
-        face_record = FaceRecord(**face_nihukura_record,idx=idx)
-        face_all_data.append(face_record)
-        break
-    print(face_all_data)
 
-    return render_template('base.html', tweets=tweets, n_open_tweets=n_open_tweets)
+    alignment_data_man = nifukura.alignment("man", face_nihukura_records)
+    alignment_data_woman = nifukura.alignment("woman", face_nihukura_records)
+    tweet.tweet_from_msg("男性の顔の大きさ情報↓" + alignment_data_man)
+    tweet.tweet_from_msg("女性の顔の大きさ情報↓" + alignment_data_woman)
+    # if sex=="man":
+    #     tweet.tweet_from_msg("男性の顔の大きさ情報↓" + alignment_data)
+    # elif sex=="woman":
+    #     tweet.tweet_from_msg("女性の顔の大きさ情報↓" + alignment_data)
 
+
+    # print(face_nihukura_records)
+    # for idx, face_nihukura_record in enumerate(face_nihukura_records):
+    #     face_record = FaceRecord(Age=face_nihukura_record["Age"],Sex=face_nihukura_record["Sex"],Face_s=face_nihukura_record["Face_s"], idx=idx)
+    #     face_all_data.append(face_record)
+    #     break
+    # print(face_all_data[0])
+
+    # return render_template('base.html', tweets=tweets, n_open_tweets=n_open_tweets)
+
+
+# main関数
+if __name__ == '__main__':
+    tweets_face_app()
