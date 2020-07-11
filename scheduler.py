@@ -1,9 +1,9 @@
 import app.nifukura as nifukura
 import app.tweet as tweet
 
+
 def tweets_face_app():
     face_nihukura_records = nifukura.get_face_data()
-
     alignment_data_man = nifukura.alignment("man", face_nihukura_records)
     alignment_data_woman = nifukura.alignment("woman", face_nihukura_records)
     alignment_data_today = nifukura.alignment_today(face_nihukura_records)

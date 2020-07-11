@@ -1,7 +1,6 @@
 import tweepy
 import settings
 import logging
-import time
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -25,19 +24,9 @@ def tweet_from_msg(msg):
         api.update_status(msg+"\n"+"#顔の大きさ"+"\n"+"https://play.google.com/store/apps/details?id=com.Miyagin.Face_shape")
     except Exception as e:
         logger.warning(f'{e} + :twitter error')
-
-
-def main():
-    while True:
-        time.sleep(INTERVAL)
-    try:
-        api.update_status("a")
-    except Exception as e:
-        logger.warning(f'{e} + :twitter error')
     # api.update_with_media(filename='./test.png', status="abe")
 
 
 # main関数
 if __name__ == '__main__':
     tweet_from_msg("a")
-    main()
