@@ -2,6 +2,7 @@
 I'm using Flask, Heroku, the Twitter API for this. The app can be hosted for free.
 
 [![Alt text](https://pbs.twimg.com/profile_images/1181376523929935874/VxsL2Ye__400x400.jpg)](https://play.google.com/store/apps/details?id=com.Miyagin.Face_shape)
+https://twitter.com/NgjNG1jL77blLGe
 
 I only use scheduler.py, main.py, nifukura.py, tweet.py 
 first I get application data from nifukura. Then I do alignment the data.
