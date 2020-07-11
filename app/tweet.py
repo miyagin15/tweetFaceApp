@@ -21,7 +21,6 @@ DEBUG = settings.DEBUG
 
 def tweet_from_msg(msg):
     msg = msg.replace("Face_s","").replace("count","データ数:").replace("mean","平均値:").replace("min","最小値:").replace("max","最大値:").replace(".000000","人")
-    # 好きな言葉をツイート
     try:
         api.update_status(msg)
     except Exception as e:
@@ -35,7 +34,6 @@ def main():
         api.update_status("a")
     except Exception as e:
         logger.warning(f'{e} + :twitter error')
-
     # api.update_with_media(filename='./test.png', status="abe")
 
 
