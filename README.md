@@ -1,9 +1,12 @@
-# Build & Deploy a Python Web App To Schedule Tweets.
-I'm using Flask, Heroku, the Twitter API & Google Sheets API for this. The app can be hosted for free.
+# tweet my application data 
+I'm using Flask, Heroku, the Twitter API for this. The app can be hosted for free.
 
-You can use this repo as a starting point. Watch how I build and deploy this app step by step here: 
+[![Alt text](https://pbs.twimg.com/profile_images/1181376523929935874/VxsL2Ye__400x400.jpg)](https://play.google.com/store/apps/details?id=com.Miyagin.Face_shape)
 
-[![Alt text](https://img.youtube.com/vi/yCYPzoG25ak/hqdefault.jpg)](https://www.youtube.com/watch?v=yCYPzoG25ak)
+I only use scheduler.py, main.py, nifukura.py, tweet.py 
+first I get application data from nifukura. Then I do alignment the data.
+After that I tweet it using tweepy. That is all
+
 
 ## Flask Quickstart:
 ### Create virtual env
@@ -35,10 +38,6 @@ heroku config:set INTERVAL=1200
 heroku config:set DEBUG=0
 ```
 
-Scale worker:
-```console
-heroku ps:scale worker=1
-```
 
 Test locally:
 ```console
@@ -52,13 +51,4 @@ heroku git:remote -a your_app_name
 git add .
 git commit -m "initial commit"
 git push heroku master
-```
-
-and later your secret.json:
-```console
-git checkout -b secret-branch
-  --> remove secret.json from *.gitignore* on new branch
-git add .
-git commit -m "add credentials"
-git push heroku secret-branch:master
 ```
