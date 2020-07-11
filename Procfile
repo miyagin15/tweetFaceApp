@@ -1,2 +1,4 @@
-web: gunicorn run:main --log-file -
+web: gunicorn wsgi:app
+worker: python
+main --log-file -
 

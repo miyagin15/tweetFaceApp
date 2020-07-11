@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-import nifukura
-import tweet
+import app.nifukura as nifukura
+import app.tweet as tweet
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ class FaceRecord:
         self.idx = idx
 
 
-@app.route('/')
+@app.route('/tweet')
 def tweets_face_app():
     face_all_data = []
     n_open_tweets = 0
@@ -35,7 +35,7 @@ def tweets_face_app():
     #     face_all_data.append(face_record)
     #     break
     # print(face_all_data[0])
-
+    return "complete"
     # return render_template('base.html', tweets=tweets, n_open_tweets=n_open_tweets)
 
 
